@@ -16,7 +16,7 @@ namespace SudokuSolver.Tests
         }
         
         [Theory]
-        [ClassData(typeof(SudokuData))]
+        [ClassData(typeof(FullEasySudokuSolutionData))]
         public void Sudoku_TriesToSolveASudokuPuzzle_ReturnsASolvedPuzzle(int?[][] puzzle, int?[][] expectedSolution)
         {
             sudokuSolver.Sudoku = puzzle;
@@ -25,14 +25,29 @@ namespace SudokuSolver.Tests
             AssertEqualSudoku(expectedSolution, actualSolution);
         }
 
-        private void AssertEqualSudoku(int?[][] expectedSolution, int?[][] actualSudoku)
+        [Theory]
+        [ClassData(typeof(FullEasySudokuSolutionData))]
+        public void FillSingles_TriesToFillValuesWithSingleSolution_ReturnsTrueAllTheTime(int?[][] puzzle, int?[][] expectedSolution)
+        {
+            sudokuSolver.Sudoku = puzzle;
+            var actualSolution = sudokuSolver.SolveSudoku();
+
+            AssertEqualSudoku(expectedSolution, actualSolution);
+        }
+
+        private void AssertEqualSudoku(int?[][] expectedSolution, int?[][] actualSolution)
         {
             for (var i = 0; i < 9; i++)
             {
-                for (var j = 0; j < 9; j++)
-                {
-                    Assert.Equal(expectedSolution[i][j], actualSudoku[i][j]);
-                }
+                AssertEqualSudokuLine(expectedSolution[i], actualSolution[i]);
+            }
+        }
+
+        private void AssertEqualSudokuLine(int?[] expectedSolution, int?[] actualSolution)
+        {
+            for (var i = 0; i < 9; i++)
+            {
+                Assert.Equal(expectedSolution[i], actualSolution[i]);
             }
         }
     }

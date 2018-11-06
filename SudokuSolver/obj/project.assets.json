@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Playground\\My-Sudoku-Toy\\SudokuSolver\\SudokuSolver.csproj",
+      "projectUniqueName": "C:\\Repositories\\MySudokuToy\\SudokuSolver\\SudokuSolver.csproj",
       "projectName": "SudokuSolver",
-      "projectPath": "D:\\Playground\\My-Sudoku-Toy\\SudokuSolver\\SudokuSolver.csproj",
+      "projectPath": "C:\\Repositories\\MySudokuToy\\SudokuSolver\\SudokuSolver.csproj",
       "packagesPath": "C:\\Users\\Aurimas\\.nuget\\packages\\",
-      "outputPath": "D:\\Playground\\My-Sudoku-Toy\\SudokuSolver\\obj\\",
+      "outputPath": "C:\\Repositories\\MySudokuToy\\SudokuSolver\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
