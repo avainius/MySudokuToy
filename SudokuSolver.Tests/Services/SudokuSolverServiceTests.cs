@@ -1,6 +1,6 @@
 using SudokuSolver.Interfaces.Services;
 using SudokuSolver.Services;
-using SudokuSolver.Tests.Data;
+using SudokuSolver.Tests.Data.Services;
 using Xunit;
 
 namespace SudokuSolver.Tests
@@ -15,7 +15,7 @@ namespace SudokuSolver.Tests
         }
         
         [Theory]
-        [ClassData(typeof(FullEasySudokuSolutionData))]
+        [ClassData(typeof(ProblemSolutionEasySudokuSolverServiceData))]
         public void Sudoku_TriesToSolveASudokuPuzzle_ReturnsASolvedPuzzle(int?[][] puzzle, int?[][] expectedSolution)
         {
             sudokuSolver.Sudoku = puzzle;
@@ -25,7 +25,7 @@ namespace SudokuSolver.Tests
         }
 
         [Theory]
-        [ClassData(typeof(FullEasySudokuSolutionData))]
+        [ClassData(typeof(ProblemSolutionEasySudokuSolverServiceData))]
         public void FillSingles_TriesToFillValuesWithSingleSolution_ReturnsTrueAllTheTime(int?[][] puzzle, int?[][] expectedSolution)
         {
             sudokuSolver.Sudoku = puzzle;

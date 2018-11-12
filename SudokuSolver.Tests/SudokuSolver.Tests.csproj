@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="SudokuModels\" />
+    <Folder Include="Data\Shared\" />
   </ItemGroup>
 
 </Project>

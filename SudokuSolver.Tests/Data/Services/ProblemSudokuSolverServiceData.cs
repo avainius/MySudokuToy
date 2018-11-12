@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace SudokuSolver.Tests.Data
+namespace SudokuSolver.Tests.Data.Services
 {
-    public class PartialSudokuPuzzleData : IEnumerable<object[]>
+    public class ProblemSudokuSolverServiceData : IEnumerable<object[]>
     {
         public int?[][] Puzzle1 = new int?[9][] {
             new int?[9] { null, null, null, 6, null, null, 8, null, null },
