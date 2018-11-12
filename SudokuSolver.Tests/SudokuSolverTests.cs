@@ -8,7 +8,7 @@ namespace SudokuSolver.Tests
 {
     public class SudokuSolverTests
     {
-        private ISudokuSolver sudokuSolver;
+        private ISudokuSolverService sudokuSolver;
 
         public SudokuSolverTests()
         {
@@ -39,11 +39,11 @@ namespace SudokuSolver.Tests
         {
             for (var i = 0; i < 9; i++)
             {
-                AssertEqualSudokuLine(expectedSolution[i], actualSolution[i]);
+                AssertEqualSudokuRow(expectedSolution[i], actualSolution[i]);
             }
         }
 
-        private void AssertEqualSudokuLine(int?[] expectedSolution, int?[] actualSolution)
+        private void AssertEqualSudokuRow(int?[] expectedSolution, int?[] actualSolution)
         {
             for (var i = 0; i < 9; i++)
             {

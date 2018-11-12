@@ -4,13 +4,11 @@ using System.Text;
 
 namespace SudokuSolver.Interfaces
 {
-    public interface ISudokuSolver
+    public interface ISudokuSolverService
     {
+        bool Solved { get; }
         int?[][] Sudoku { get; set; }
         int?[][] SolveSudoku();
-        bool ForceValues(int xPos, int yPos, int val);
-        bool FillSingles();
-        bool Solved();
         ValueTuple GetFirstUnfilledCoordinates();
     }
 }

@@ -5,28 +5,13 @@ using System.Text;
 
 namespace SudokuSolver.Services
 {
-    public class SudokuSolverService : ISudokuSolver
+    public class SudokuSolverService : ISudokuSolverService
     {
-        public int?[][] Sudoku { get; set; }
-        private int[] PossibleValues = new int[9] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        public bool Solved => throw new NotImplementedException();
 
-        public bool FillSingles()
-        {
-            var canContinue = true;
-            while (canContinue)
-            {
-                foreach(var line in Sudoku)
-                {
-                    
-                }
-            }
+        public int?[][] Sudoku { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-            return canContinue;
-        }
-
-        public bool ForceValues(int xPos, int yPos, int val) => throw new NotImplementedException();
         public ValueTuple GetFirstUnfilledCoordinates() => throw new NotImplementedException();
-        public bool Solved() => throw new NotImplementedException();
         public int?[][] SolveSudoku() => throw new NotImplementedException();
     }
 }
