@@ -16,4 +16,8 @@
     <ProjectReference Include="..\SudokuSolver\SudokuSolver.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SudokuModels\" />
+  </ItemGroup>
+
 </Project>

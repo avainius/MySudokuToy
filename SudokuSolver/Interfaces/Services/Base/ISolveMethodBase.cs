@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SudokuSolver.Interfaces
+﻿namespace SudokuSolver.Interfaces.Services.Base
 {
     public interface ISolveMethodBase
     {

@@ -1,7 +1,5 @@
-﻿using SudokuSolver.Interfaces;
+﻿using SudokuSolver.Interfaces.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SudokuSolver.Services
 {

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SudokuSolver.Interfaces
+namespace SudokuSolver.Interfaces.Services
 {
     public interface ISudokuSolverService
     {

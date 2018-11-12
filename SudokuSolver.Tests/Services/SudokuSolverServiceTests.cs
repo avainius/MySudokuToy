@@ -1,16 +1,15 @@
-using SudokuSolver.Interfaces;
+using SudokuSolver.Interfaces.Services;
 using SudokuSolver.Services;
 using SudokuSolver.Tests.Data;
-using System;
 using Xunit;
 
 namespace SudokuSolver.Tests
 {
-    public class SudokuSolverTests
+    public class SudokuSolverServiceTests
     {
         private ISudokuSolverService sudokuSolver;
 
-        public SudokuSolverTests()
+        public SudokuSolverServiceTests()
         {
             sudokuSolver = new SudokuSolverService();
         }
