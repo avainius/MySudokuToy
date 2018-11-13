@@ -93,5 +93,84 @@ namespace SudokuSolver.Tests.SudokuModels
 
             Assert.DoesNotContain(value, SudokuCellModel.PossibleValues);
         }
+
+        [Fact]
+        public void EliminatedValues_NewCellModelObjectCreated_EliminatedValuesListIsEmpty()
+        {
+            SudokuCellModel = new SudokuCellModel(null);
+
+            Assert.Empty(SudokuCellModel.EliminatedValues);
+        }
+
+        [Fact]
+        public void SetCellValue_CellValueIsSetToNull_CurrentCellReturnsNull()
+        {
+            SudokuCellModel.SetCellValue(null);
+
+            var actualValue = SudokuCellModel.CurrentValue;
+
+            Assert.Null(actualValue);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelData))]
+        public void SetCellValue_MethodCalledWithValidSudokuValue_CurrentCellValueIsSetToThatValue(int value)
+        {
+            var expectedValue = value;
+
+            SudokuCellModel.SetCellValue(value);
+
+            var actualValue = SudokuCellModel.CurrentValue;
+
+            Assert.Equal(expectedValue, actualValue);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidValueData))]
+        public void SetCellValue_MethodCalledWithInalidSudokuValue_ExceptionIsThrown(int value)
+        {
+            Assert.Throws<ArgumentException>(() => SudokuCellModel.SetCellValue(value));
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelData))]
+        public void EliminateValue_TriesToElminateValidValues_EliminatedValuesListContainsThatValue(int value)
+        {
+            var expectedValue = value;
+
+            SudokuCellModel.EliminateValue(value);
+
+            Assert.Contains(expectedValue, SudokuCellModel.EliminatedValues);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidValueData))]
+        public void EliminateValue_TriesToElminateInvalidValues_ExceptionIsThrown(int value)
+        {
+            Assert.Throws<ArgumentException>(() => SudokuCellModel.EliminateValue(value));
+        }
+
+        [Fact]
+        public void ClearEliminatedList_MethodIsCalledOnFullEliminatedValuesList_EliminatedValuesListIsEmpty()
+        {
+            ValidCellValues.ForEach(SudokuCellModel.EliminateValue);
+
+            SudokuCellModel.ClearEliminatedList();
+
+            Assert.Empty(SudokuCellModel.EliminatedValues);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelData))]
+        public void ClearCellValue_TriesToClearValueFromCurrentCellValue_ValueSuccessfullyCleared(int value)
+        {
+            SudokuCellModel.SetCellValue(value);
+            var expectedValue = value;
+            var actualValue = SudokuCellModel.CurrentValue;
+            Assert.Equal(expectedValue, actualValue);
+
+            SudokuCellModel.ClearCellValue();
+            Assert.Null(SudokuCellModel.CurrentValue);
+        }
     }
 }
