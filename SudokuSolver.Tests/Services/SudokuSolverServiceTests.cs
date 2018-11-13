@@ -13,26 +13,6 @@ namespace SudokuSolver.Tests
         {
             sudokuSolver = new SudokuSolverService();
         }
-        
-        [Theory]
-        [ClassData(typeof(ProblemSolutionEasySudokuSolverServiceData))]
-        public void Sudoku_TriesToSolveASudokuPuzzle_ReturnsASolvedPuzzle(int?[][] puzzle, int?[][] expectedSolution)
-        {
-            sudokuSolver.Sudoku = puzzle;
-            var actualSolution = sudokuSolver.SolveSudoku();
-
-            AssertEqualSudoku(expectedSolution, actualSolution);
-        }
-
-        [Theory]
-        [ClassData(typeof(ProblemSolutionEasySudokuSolverServiceData))]
-        public void FillSingles_TriesToFillValuesWithSingleSolution_ReturnsTrueAllTheTime(int?[][] puzzle, int?[][] expectedSolution)
-        {
-            sudokuSolver.Sudoku = puzzle;
-            var actualSolution = sudokuSolver.SolveSudoku();
-
-            AssertEqualSudoku(expectedSolution, actualSolution);
-        }
 
         private void AssertEqualSudoku(int?[][] expectedSolution, int?[][] actualSolution)
         {

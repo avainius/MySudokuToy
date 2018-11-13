@@ -1,4 +1,5 @@
 ﻿using SudokuSolver.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +16,8 @@ namespace SudokuSolver.SudokuModels
         public List<int> PossibleValues => ValidValues.Where(x => !EliminatedValues.Contains(x) && 
         (CurrentValue == null || !ValidValues.Contains(CurrentValue.Value))).ToList();
 
-        public List<int> EliminatedValues { get; }
+        public List<int> EliminatedValues { get; private set; }
+        public bool Marked { get; set; }
 
         public SudokuCellModel(int? value)
         {
@@ -24,13 +26,25 @@ namespace SudokuSolver.SudokuModels
             _currentValue = value;
         }
 
-        public void ClearCellValue() => throw new System.NotImplementedException();
-        public int? SetCellValue(int? value) => throw new System.NotImplementedException();
+        public void ClearCellValue() => SetCellValue(null);
+        public int? SetCellValue(int? value)
+        {
+            if (value != null && !ValueValid(value.Value))
+                throw new ArgumentException($"Trying to set to an invalid value: {value}. " +
+                    $"The valid value range is [{ValidValues.Min()};{ValidValues.Max()}].");
+            _currentValue = value;
+            return _currentValue;
+        }
+
         public void EliminateValue(int value)
-        { 
+        {
+            if (!ValueValid(value))
+                throw new ArgumentException($"Trying to eliminate an invalid value: {value}. " +
+                    $"The valid value range is [{ValidValues.Min()};{ValidValues.Max()}].");
             EliminatedValues.Add(value);
         }
 
-        public void ClearEliminatedList() => throw new System.NotImplementedException();
+        public void ClearEliminatedList() => EliminatedValues = new List<int>();
+        public bool ValueValid(int value) => ValidValues.Contains(value);
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SudokuSolver.Tests.Data.SudokuModels
 {
-    public class SudokuCellModelInvalidValueData : IEnumerable<object[]>
+    public class SudokuCellModelInvalidData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

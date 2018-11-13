@@ -5,9 +5,13 @@ namespace SudokuSolver.Interfaces.Models
     public interface ISudokuBlockModel
     {
         ISudokuCellModel[][] Block { get; }
-        List<ISudokuCellModel> EmptyCells { get; }
-        List<ISudokuCellModel> DublicateCells { get; }
-        bool HasDublicates();
-        bool BlockSolved();
+        List<ISudokuCellModel> CellList { get; }
+        void ValidateBlock(int?[][] sudoku);
+        void MarkDublicateCells();
+        void MarkIntersectingCells(List<ISudokuCellModel> cells);
+        void RemoveMark(ISudokuCellModel cell);
+        void RemoveAllMarks();
+        bool BlockHasDublicates();
+        bool HasIntersectingCells(List<ISudokuBlockModel> blocks);
     }
 }

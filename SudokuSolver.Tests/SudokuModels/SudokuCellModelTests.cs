@@ -20,7 +20,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void CurrentValue_NewModelCreatedWithValidIntParameter_CurrentValueIsSetToThatParameter(int value)
         {
             var expectedValue = value;
@@ -43,7 +43,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void SoleCandidate_ModelHasOnePossibleValueRemaining_SoleCandidateIsSetToThatValue(int value)
         {
             var expectedValue = value;
@@ -84,7 +84,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void PossibleValues_ValueGetsEliminated_PossibleValuesNoLongerContainsThatValue(int value)
         {
             Assert.Contains(value, SudokuCellModel.PossibleValues);
@@ -113,7 +113,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void SetCellValue_MethodCalledWithValidSudokuValue_CurrentCellValueIsSetToThatValue(int value)
         {
             var expectedValue = value;
@@ -126,14 +126,14 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelInvalidValueData))]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
         public void SetCellValue_MethodCalledWithInalidSudokuValue_ExceptionIsThrown(int value)
         {
             Assert.Throws<ArgumentException>(() => SudokuCellModel.SetCellValue(value));
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void EliminateValue_TriesToElminateValidValues_EliminatedValuesListContainsThatValue(int value)
         {
             var expectedValue = value;
@@ -144,7 +144,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelInvalidValueData))]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
         public void EliminateValue_TriesToElminateInvalidValues_ExceptionIsThrown(int value)
         {
             Assert.Throws<ArgumentException>(() => SudokuCellModel.EliminateValue(value));
@@ -161,7 +161,7 @@ namespace SudokuSolver.Tests.SudokuModels
         }
 
         [Theory]
-        [ClassData(typeof(SudokuCellModelData))]
+        [ClassData(typeof(SudokuCellModelValidData))]
         public void ClearCellValue_TriesToClearValueFromCurrentCellValue_ValueSuccessfullyCleared(int value)
         {
             SudokuCellModel.SetCellValue(value);
@@ -171,6 +171,116 @@ namespace SudokuSolver.Tests.SudokuModels
 
             SudokuCellModel.ClearCellValue();
             Assert.Null(SudokuCellModel.CurrentValue);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void ValueValid_ReceivesValidValuesForValidation_ReturnsTrue(int value)
+        {
+            var actualResult = SudokuCellModel.ValueValid(value);
+
+            Assert.True(actualResult);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
+        public void ValueValid_ReceivesInvalidValuesForValidation_ReturnsFalse(int value)
+        {
+            var actualResult = SudokuCellModel.ValueValid(value);
+
+            Assert.False(actualResult);
+        }
+
+        [Fact]
+        public void Marked_NewCellModelCreatedWithNull_MarkedSetToFalse()
+        {
+            SudokuCellModel = new SudokuCellModel(null);
+
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void Marked_NewCellModelCreatedWithValidValue_MarkedSetToFalse(int value)
+        {
+            SudokuCellModel = new SudokuCellModel(value);
+
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Fact]
+        public void Marked_CellValueIsSetToNull_MarkedRemainsFalse()
+        {
+            SudokuCellModel.SetCellValue(null);
+
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void Marked_MethodCalledWithValidSudokuValue_MarkedRemainsFalse(int value)
+        {
+            SudokuCellModel.SetCellValue(value);
+
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
+        public void Marked_MethodCalledWithInalidSudokuValue_MarkedRemainsFalse(int value)
+        {
+            Assert.Throws<ArgumentException>(() => SudokuCellModel.SetCellValue(value));
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void Marked_TriesToElminateValidValues_MarkedRemainsFalse(int value)
+        {
+            SudokuCellModel.EliminateValue(value);
+
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
+        public void Marked_TriesToElminateInvalidValues_MarkedRemainsFalse(int value)
+        {
+            Assert.Throws<ArgumentException>(() => SudokuCellModel.EliminateValue(value));
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Fact]
+        public void Marked_MethodIsCalledOnFullEliminatedValuesList_MarkedRemainsFalse()
+        {
+            ValidCellValues.ForEach(SudokuCellModel.EliminateValue);
+            SudokuCellModel.ClearEliminatedList();
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void Marked_TriesToClearValueFromCurrentCellValue_MarkedRemainsFalse(int value)
+        {
+            SudokuCellModel.SetCellValue(value);
+            SudokuCellModel.ClearCellValue();
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelValidData))]
+        public void Marked_ReceivesValidValuesForValidation_MarkedRemainsFalse(int value)
+        {
+            SudokuCellModel.ValueValid(value);
+            Assert.False(SudokuCellModel.Marked);
+        }
+
+        [Theory]
+        [ClassData(typeof(SudokuCellModelInvalidData))]
+        public void Marked_ReceivesInvalidValuesForValidation_MarkedRemainsFalse(int value)
+        {
+            SudokuCellModel.ValueValid(value);
+            Assert.False(SudokuCellModel.Marked);
         }
     }
 }

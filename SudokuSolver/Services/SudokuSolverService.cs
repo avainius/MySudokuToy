@@ -7,9 +7,8 @@ namespace SudokuSolver.Services
     {
         public bool Solved => throw new NotImplementedException();
 
-        public int?[][] Sudoku { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int?[][] Sudoku => throw new NotImplementedException();
 
-        public ValueTuple GetFirstUnfilledCoordinates() => throw new NotImplementedException();
-        public int?[][] SolveSudoku() => throw new NotImplementedException();
+        public void SolveSudoku() => throw new NotImplementedException();
     }
 }

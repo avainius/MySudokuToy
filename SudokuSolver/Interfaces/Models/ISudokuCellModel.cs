@@ -9,10 +9,12 @@ namespace SudokuSolver.Interfaces.Models
         List<int> ValidValues { get; }
         List<int> PossibleValues { get; }
         List<int> EliminatedValues { get; }
+        bool Marked { get; set; }
 
         int? SetCellValue(int? value);
         void EliminateValue(int value);
         void ClearEliminatedList();
         void ClearCellValue();
+        bool ValueValid(int value);
     }
 }
